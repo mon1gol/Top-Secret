@@ -3,8 +3,8 @@ from django.db import models
 
 class Hackathon(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField()
-    logo = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+    description = models.TextField()
+    logo = models.ImageField(upload_to='hackathon_images', blank=True, null=True, height_field=None, width_field=None, max_length=None)
 
     class Meta:
         db_table = 'hackathon'
@@ -33,8 +33,8 @@ class HackathonAssessment(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=50)
-    logo = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+    description = models.TextField()
+    logo = models.ImageField(upload_to='team_images', blank=True, null=True, height_field=None, width_field=None, max_length=None)
     id_hackathon = models.ForeignKey(Hackathon, on_delete=models.CASCADE)
 
     class Meta:

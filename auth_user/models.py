@@ -4,9 +4,9 @@ from django.db import models
 class User(models.Model):
     name = models.CharField(max_length=50)
     login = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=254,)
+    email = models.EmailField(max_length=254)
     password = models.CharField(max_length=255)
-    id_team = models.OneToOneField('main.Team', on_delete=models.CASCADE, default='Null', blank=True)
+    id_team = models.OneToOneField('main.Team', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = 'user'
