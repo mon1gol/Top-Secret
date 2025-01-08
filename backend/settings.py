@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     
     'main',
-    'auth_user',
 ]
 
 MIDDLEWARE = [
