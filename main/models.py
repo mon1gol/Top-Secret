@@ -2,12 +2,14 @@ from django.db import models
 
 
 class Hackathon(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    logo = models.ImageField(upload_to='hackathon_images', blank=True, null=True, height_field=None, width_field=None, max_length=None)
+    name = models.CharField(max_length=50, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
+    logo = models.ImageField(upload_to='hackathon_images', blank=True, null=True, height_field=None, width_field=None, max_length=None, verbose_name='Логотип')
 
     class Meta:
         db_table = 'hackathon'
+        verbose_name = 'Хакатон'
+        verbose_name_plural = 'Хакатоны'
 
 
 class HackathonRules(models.Model):
@@ -19,6 +21,8 @@ class HackathonRules(models.Model):
 
     class Meta:
         db_table = 'hackathon_rules'
+        verbose_name = 'Правило'
+        verbose_name_plural = 'Правила'
 
 
 class HackathonAssessment(models.Model):
@@ -29,6 +33,8 @@ class HackathonAssessment(models.Model):
 
     class Meta:
         db_table = 'hackathon_assessment'
+        verbose_name = 'Критерий'
+        verbose_name_plural = 'Критерии'
 
 
 class Team(models.Model):
@@ -39,4 +45,6 @@ class Team(models.Model):
 
     class Meta:
         db_table = 'team'
+        verbose_name = 'Команду'
+        verbose_name_plural = 'Команды'
     
