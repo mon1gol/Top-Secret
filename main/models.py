@@ -13,11 +13,11 @@ class Hackathon(models.Model):
 
 
 class HackathonRules(models.Model):
-    min_members_in_team = models.IntegerField()
-    max_members_in_team = models.IntegerField()
-    date_start = models.DateField(auto_now=False, auto_now_add=False)
-    date_end = models.DateField(auto_now=False, auto_now_add=False)
-    id_hackathon = models.OneToOneField(Hackathon, on_delete=models.CASCADE)
+    min_members_in_team = models.IntegerField(verbose_name='Мин. кол-во участников в команде')
+    max_members_in_team = models.IntegerField(verbose_name='Макс. кол-во участников в команде')
+    date_start = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Дата начала')
+    date_end = models.DateField(auto_now=False, auto_now_add=False, verbose_name='Дата окончания')
+    id_hackathon = models.OneToOneField(Hackathon, on_delete=models.CASCADE, verbose_name='Хакатон')
 
     class Meta:
         db_table = 'hackathon_rules'
