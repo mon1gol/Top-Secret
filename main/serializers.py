@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from main.models import Hackathon
+from main.models import Tournament
 
 
-class HackathonSerializer(serializers.ModelSerializer):
+class TournamentSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Hackathon
+        model = Tournament
         fields = "__all__"

@@ -6,5 +6,6 @@ from main import views
 # список url маршрутов
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/index/', views.TournamentsAPIList.as_view()),
+    path('', views.index),
+    path('api/v1/', views.TournamentsAPIList.as_view()),
 ]

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from main.models import Hackathon, HackathonRules, HackathonAssessment, Team
+from main.models import Tournament, TournamentRules, TournamentAssessment, Team
 
 
-admin.site.register(Hackathon)
-admin.site.register(HackathonRules)
-admin.site.register(HackathonAssessment)
+admin.site.register(Tournament)
+admin.site.register(TournamentRules)
+admin.site.register(TournamentAssessment)
 admin.site.register(Team)

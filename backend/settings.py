@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hackathon',
+        'NAME': 'tournaments',
         'USER': 'postgres',
         'PASSWORD': '2121',
         'HOST': 'localhost',
