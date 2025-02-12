@@ -1,16 +1,11 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { Icon } from "@iconify/vue";
 </script>
 
 <template>
   <header>
-    <h1 class="text-left-20px font-bold underline bg-amber-600">
-      Hello world!
-    </h1>
-
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
