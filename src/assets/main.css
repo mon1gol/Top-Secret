@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+
+.bg-white{
+    background-color: #f8f9fb;
+}
+
+.bg-blue-one{
+    background-color: #e1ecf7;
+}
+
+.bg-blue-two{
+    background-color: #aecbeb;
+}
+
+.bg-blue-three{
+    background-color: #83b0e1;
+}
+
+.bg-blue-four{
+    background-color: #71a5de;
+}
