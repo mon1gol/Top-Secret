@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@iconify/vue": "^4.3.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "eslint": "^9.18.0",
