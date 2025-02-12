@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from main.models import Tournament
+
+from .models import CategoryTournament, Tournament
 
 
 class TournamentSerializer(serializers.ModelSerializer):

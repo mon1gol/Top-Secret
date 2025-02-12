@@ -1,17 +1,14 @@
-from requests import Response
-from rest_framework.decorators import action
-from rest_framework import viewsets
-from main.models import Tournament
-from main.serializers import TournamentSerializer
-from main.models import *
+from django.shortcuts import render
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .models import Tournament
+from .serializers import TournamentSerializer
 
 
-class TournamentsViewSet(viewsets.ModelViewSet):
-    queryset = Tournament.objects.all()
-    serializer_class = TournamentSerializer
-
-    @action(methods=['get'], detail=False)
-    def getname(self, request):
-        tournaments = Tournament.objects.all()
-        return Response({'name': [t.name for t in tournaments]})
-    
+class LatestTournamentsList(APIView):
+    def get(self, request, format=None):
+        tournaments = Tournament.objects.all()[0:4]
+        serializer = TournamentSerializer(tournaments, many=True)
+        return Response(serializer.data)
