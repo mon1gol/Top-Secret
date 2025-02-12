@@ -1,5 +1,0 @@
-[
-  { "model": "auth_user.role", "pk": 0, "fields": { "name": "default" } },
-  { "model": "auth_user.role", "pk": 1, "fields": { "name": "admin" } },
-  { "model": "auth_user.role", "pk": 2, "fields": { "name": "moderator" } }
-]

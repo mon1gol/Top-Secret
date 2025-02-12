@@ -1,7 +1,8 @@
 from django.contrib import admin
-from main.models import Tournament, TournamentRules, TournamentAssessment, Team
+from main.models import CategoryTournament, Tournament, TournamentRules, TournamentAssessment, Team
 
 
+admin.site.register(CategoryTournament)
 admin.site.register(Tournament)
 admin.site.register(TournamentRules)
 admin.site.register(TournamentAssessment)

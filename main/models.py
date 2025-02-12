@@ -1,15 +1,46 @@
 from django.db import models
 
 
-class Tournament(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
-    logo = models.ImageField(upload_to='tournament_images', blank=True, null=True, height_field=None, width_field=None, max_length=None, verbose_name='Логотип')
+class CategoryTournament(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название категории')
+    slug = models.SlugField()
 
     class Meta:
+        db_table = 'tournament_category'
+        ordering = ('name',)
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/{self.slug}/'
+    
+
+class Tournament(models.Model):
+    category = models.ForeignKey(CategoryTournament, related_name='tournaments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, verbose_name='Название')
+    slug = models.SlugField()
+    description = models.TextField(verbose_name='Описание', blank=True, null=True)
+    logo = models.ImageField(upload_to='uploads/tournament_logo', blank=True, null=True, verbose_name='Логотип')
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-date_added',)
         db_table = 'tournament'
         verbose_name = 'Соревнование'
         verbose_name_plural = 'Соревнования'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/{self.category.slug}/{self.slug}/'
+
+    def get_image(self):
+        if self.logo:
+            return 'http://127.0.0.1:8000' + self.logo.url
 
 
 class TournamentRules(models.Model):
@@ -39,8 +70,8 @@ class TournamentAssessment(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=50)
-    description = models.TextField()
-    logo = models.ImageField(upload_to='team_images', blank=True, null=True, height_field=None, width_field=None, max_length=None)
+    description = models.TextField(blank=True, null=True)
+    logo = models.ImageField(upload_to='uploads/team_logo', blank=True, null=True, verbose_name='Логотип')
     id_tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
 
     class Meta:
