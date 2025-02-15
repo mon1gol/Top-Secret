@@ -20,3 +20,7 @@
 .bg-blue-four{
     background-color: #71a5de;
 }
+
+html, body{
+    overflow-x: hidden;
+}
