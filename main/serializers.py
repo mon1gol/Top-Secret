@@ -7,4 +7,10 @@ class TournamentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Tournament
-        fields = "__all__"
+        fields = (
+            "id",
+            "get_absolute_url",
+            "get_image",
+            "name",
+            "description"
+        )

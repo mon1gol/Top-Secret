@@ -41,6 +41,7 @@ class Tournament(models.Model):
     def get_image(self):
         if self.logo:
             return 'http://127.0.0.1:8000' + self.logo.url
+        return ''
 
 
 class TournamentRules(models.Model):
@@ -76,6 +77,17 @@ class Team(models.Model):
 
     class Meta:
         db_table = 'team'
+        ordering = ('name',)
         verbose_name = 'Команду'
         verbose_name_plural = 'Команды'
     
+    def __str__(self):
+        return self.name
+
+    # def get_absolute_url(self):
+    #     return f'/teams/{self.id}'
+
+    def get_image(self):
+        if self.logo:
+            return 'http://127.0.0.1:8000' + self.logo.url
+        return ''
