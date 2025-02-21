@@ -11,7 +11,7 @@ export default{
 
   },
   mounted(){
-    document.title = 'About | IT Tournaments'
+    document.title = 'About'
   }
 }
 </script>
