@@ -8,7 +8,10 @@
 export default{
   name: 'AboutView',
   components: {
-    
+
+  },
+  mounted(){
+    document.title = 'About | IT Tournaments'
   }
 }
 </script>
