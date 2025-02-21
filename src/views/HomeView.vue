@@ -31,7 +31,7 @@ export default{
   },
   mounted(){
     this.getLatestTournaments()
-    document.title = 'Home | IT Tournaments'
+    document.title = 'Home'
   },
   methods: {
     getLatestTournaments(){
