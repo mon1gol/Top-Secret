@@ -38,7 +38,7 @@ export default {
         .get(`/api/v1/tournaments/${category_slug}/${tournament_slug}/`)
         .then(Response =>{
           this.tournament = Response.data
-          document.title = this.tournament.name + ' | IT Tournaments'
+          document.title = this.tournament.name
         })
         .catch(error => {
           console.log(error)
