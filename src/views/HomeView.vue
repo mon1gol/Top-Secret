@@ -4,13 +4,13 @@
       <div class="text-6xl font-bold text-center">Соревнования</div>
 
       <div class="mt-40 grid grid-cols-3 justify-items-center gap-y-10">
-        <div class="bg-blue-500 size-100 shadow-2xl"
+        <router-link :to="tournament.get_absolute_url" class="bg-blue-500 size-100 shadow-2xl"
           v-for="tournament in latestTournaments"
           v-bind:key="tournament.id"
         >
           <img class="bg-blue-two h-70 w-100" :src="tournament.get_image">
           <div class="p-5 text-2xl">{{ tournament.name }}</div>
-        </div>
+        </router-link>
       </div>
     </div>
   </main>
