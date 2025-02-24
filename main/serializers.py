@@ -4,7 +4,6 @@ from .models import CategoryTournament, Tournament
 
 
 class TournamentSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = Tournament
         fields = (
@@ -13,4 +12,17 @@ class TournamentSerializer(serializers.ModelSerializer):
             "get_image",
             "name",
             "description"
+        )
+
+class CategorySerializer(serializers.ModelSerializer):
+    tournaments = TournamentSerializer(many=True)
+
+    class Meta:
+        model = CategoryTournament
+        fields = (
+            "id",
+            "get_absolute_url",
+            "name",
+            "slug",
+            "tournaments",
         )
