@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <div class="wrapper">
-      <nav class="bg-blue-four h-15 p-5 flex items-center gap-5 font-bold text-gray-700">
+      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center gap-5 px-10 py-5 font-bold text-gray-700">
         <RouterLink to="/">Главная</RouterLink>
         <RouterLink to="/about">О сайте</RouterLink>
       </nav>
