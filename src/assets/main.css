@@ -22,6 +22,22 @@ html, body{
     background-color: #71a5de;
 }
 
+.bg-dark-1{
+    background-color: #0f0f0f;
+}
+.bg-dark-2{
+    background-color: #2a2929;
+}
+.bg-dark-3{
+    background-color: #444342;
+}
+.bg-light-1{
+    background-color: #ffd000;
+}
+.bg-dark-2{
+    background-color: #ffb700;
+}
+
 
 .btn-hover-dark:hover{
     background-color: #71a5de;
@@ -50,4 +66,10 @@ html, body{
 }
 .category-btn-hover-dark:hover::after{
     width: 100%;
+}
+
+
+.gradient-blue{
+    background: rgb(225,236,247);
+    background: linear-gradient(162deg, rgba(225,236,247,1) 49%, rgba(113,165,222,1) 100%);
 }
