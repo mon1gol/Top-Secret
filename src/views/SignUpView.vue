@@ -45,7 +45,7 @@ export default {
     }
   },
   mounted(){
-
+    document.title = 'SignUp'
   },
   methods:{
     submitForm(){
