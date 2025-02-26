@@ -15,7 +15,7 @@
             <input v-model="password" placeholder="Введите" type="password" class="block w-full rounded-xl bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-150">
           </div>
         </div>
-        <button class="mt-7 block w-full rounded-xl bg-blue-three btn-hover-dark z-3 px-3.5 py-2 text-white cursor-pointer">Регистрация</button>
+        <button class="mt-7 block w-full rounded-xl bg-blue-three btn-hover-dark z-3 px-3.5 py-2 text-white cursor-pointer">Войти</button>
         <!-- <div class="text-red-500 text-center" v-if="errors.length">
           <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
         </div> -->
