@@ -16,6 +16,34 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterView />
 </template>
 
+<script>
+import { useCommonStore } from './stores';
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+  beforeCreate() {
+    const commonStore = useCommonStore()
+    commonStore.initializeStore()
+
+    const token = commonStore.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ""
+    }
+  },
+  mounted() {
+
+  },
+}
+</script>
+
 <style scoped>
 
 </style>
