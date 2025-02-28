@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useCommonStore } from '@/stores'
 import HomeView from '../views/HomeView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,8 +31,29 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/LoginView.vue'),
     },
+    {
+      path: '/my-account',
+      name: 'myAccount',
+      component: () => import('../views/MyAccountView.vue'),
+      meta: {
+        requireLogin: true
+      }
+    },
 
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const commonStore = useCommonStore()
+
+  if(to.matched.some(record => record.meta.requireLogin) && !commonStore.isAuthenticated){
+    next({
+      name: 'login',
+      query: { to: to.path }
+    });
+  } else {
+    next()
+  }
 })
 
 export default router

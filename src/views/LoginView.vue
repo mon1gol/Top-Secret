@@ -66,7 +66,6 @@ export default {
           localStorage.setItem("token", token)
 
           const toPath = this.$route.query.to || '/'
-          console.log(toPath)
           this.$router.push(toPath)
         })
         .catch(error => {
