@@ -8,7 +8,9 @@
         <div>Дата окончания: </div>
         <div>В команде должно быть от до участников</div>
       </div>
-      <button class="bg-blue-four mt-10 cursor-pointer rounded-2xl px-10 py-5">Подать заявку</button>
+      <router-link :to="tournament.get_absolute_url + 'submit'">
+        <button class="bg-blue-four mt-10 cursor-pointer rounded-2xl px-10 py-5">Подать заявку</button>
+      </router-link>
     </div>
     <div class="">
       <img class="h-100 w-150 object-cover shadow-2xl" :src="tournament.get_image" :alt="tournament.name">

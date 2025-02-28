@@ -22,6 +22,11 @@ const router = createRouter({
       component: () => import('../views/TournamentView.vue'),
     },
     {
+      path: '/:category_slug/:tournament_slug/submit',
+      name: 'submitTournament',
+      component: () => import('../views/SubmitTournamentView.vue'),
+    },
+    {
       path: '/sign-up',
       name: 'signUp',
       component: () => import('../views/SignUpView.vue'),
