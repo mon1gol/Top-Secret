@@ -5,10 +5,17 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <div class="wrapper">
-      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center gap-5 px-10 py-5 font-bold text-gray-700">
-        <RouterLink to="/">Главная</RouterLink>
-        <RouterLink to="/about">О сайте</RouterLink>
+    <div>
+      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center justify-between gap-5 px-20 py-5 font-bold text-gray-700">
+        <div class="space-x-5">
+          <RouterLink to="/">Главная</RouterLink>
+          <RouterLink to="/about">О сайте</RouterLink>
+        </div>
+        <div class="space-x-5">
+          <RouterLink v-if="!userStatus" to="/log-in">Войти</RouterLink>
+          <RouterLink v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
+          <RouterLink v-if="userStatus" to="/my-account">Профиль</RouterLink>
+        </div>
       </nav>
     </div>
   </header>
@@ -20,13 +27,18 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useCommonStore } from './stores';
 import axios from 'axios';
 
+
 export default {
   data() {
-    return {
-
-    }
+    return {}
   },
-  beforeCreate() {
+  computed: {
+    userStatus() {
+      const commonStore = useCommonStore();
+      return commonStore.isAuthenticated;
+    },
+  },
+  created() {
     const commonStore = useCommonStore()
     commonStore.initializeStore()
 
@@ -38,12 +50,5 @@ export default {
       axios.defaults.headers.common['Authorization'] = ""
     }
   },
-  mounted() {
-
-  },
 }
 </script>
-
-<style scoped>
-
-</style>

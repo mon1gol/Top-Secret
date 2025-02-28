@@ -66,9 +66,9 @@ export default {
         }
         axios
           .post("/api/v1/users/", formData)
-          .then(Response => {
+          .then(
             this.$router.push('/log-in')
-          })
+          )
           .catch(error => {
             if(error.Response){
               for(const property in error.Response.data){
