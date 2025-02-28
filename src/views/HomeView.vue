@@ -20,7 +20,7 @@
       </div>
 
       <div class="mt-10 grid grid-cols-3 justify-items-center gap-y-10">
-        <router-link :to="tournament.get_absolute_url" class="bg-blue-500 size-100 shadow-sm"
+        <router-link :to="tournament.get_absolute_url" class="bg-blue-500 size-100 shadow-sm overflow-hidden rounded-xl"
           v-for="tournament in latestTournaments" :key="tournament.id">
           <img class="bg-blue-two h-70 w-100 object-cover" :src="tournament.get_image">
           <div class="p-5 text-2xl">{{ tournament.name }}</div>
@@ -32,6 +32,7 @@
 
 <script>
 import axios from 'axios';
+
 
 export default {
   name: 'HomeView',
