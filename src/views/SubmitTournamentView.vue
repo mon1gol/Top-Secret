@@ -27,7 +27,7 @@
             placeholder="Введите" type="text" list="search-nicknames"
             class="block w-full rounded-xl bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-150">
             <datalist id="search-nicknames">
-              <option value="dron">dron</option>
+              <option v-for="user in allUsers" :key="user.id" :value="user.username">{{ user.username }}</option>
             </datalist>
             <button type="button" v-on:click="removeMember(index)" class="bg-blue-one py-2 px-4 rounded-xl cursor-pointer">Удалить</button>
         </div>
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       tournament: {},
+      allUsers:[],
       members: [],
       team_name: '',
       errors: [],
@@ -58,6 +59,7 @@ export default {
   },
   mounted() {
     this.getTournament()
+    this.getUsernames()
   },
   methods: {
     getTournament(){
@@ -74,13 +76,23 @@ export default {
           console.log(error)
         })
     },
+    getUsernames(){
+      axios
+        .get(`/api/v1/users-list/`)
+        .then(Response =>{
+          this.allUsers = Response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     appendMember(){
       this.members.push({ nickname: '' })
       console.log(this.members)
     },
     removeMember(index){
       this.members.splice(index, 1)
-    }
+    },
   },
 }
 </script>
