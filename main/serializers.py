@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
 from .models import CategoryTournament, Tournament
 
@@ -16,7 +17,6 @@ class TournamentSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     tournaments = TournamentSerializer(many=True)
-
     class Meta:
         model = CategoryTournament
         fields = (
@@ -25,4 +25,12 @@ class CategorySerializer(serializers.ModelSerializer):
             "name",
             "slug",
             "tournaments",
+        )
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
         )

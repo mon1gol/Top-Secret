@@ -2,14 +2,15 @@ from django.http import Http404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 from .models import CategoryTournament, Tournament
-from .serializers import TournamentSerializer, CategorySerializer
+from .serializers import TournamentSerializer, CategorySerializer, UserSerializer
 
 
 class LatestTournamentsList(APIView):
     def get(self, request, format=None):
-        tournaments = Tournament.objects.all()[0:4]
+        tournaments = Tournament.objects.all()
         serializer = TournamentSerializer(tournaments, many=True)
         return Response(serializer.data)
     
@@ -36,3 +37,13 @@ class CategoryDetail(APIView):
         category = self.get_object(category_slug)
         serializer = CategorySerializer(category)
         return Response(serializer.data)
+
+class UsersList(APIView):
+    def get(self, request, format=None):
+        usernames = User.objects.filter(is_superuser=False)
+        serializer = UserSerializer(usernames, many=True)
+        return Response(serializer.data)
+
+# class TournamentActions():
+#     def post(self, request, format=None):
+#         pass
