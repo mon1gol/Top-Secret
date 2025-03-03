@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class CategoryTournament(models.Model):
@@ -84,10 +85,19 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return f'/teams/{self.id}'
-
     def get_image(self):
         if self.logo:
             return 'http://127.0.0.1:8000' + self.logo.url
         return ''
+    
+class LinkToTeamMember(models.Model):
+    user = models.ForeignKey(User, related_name='team_memberships', on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, related_name='members', on_delete=models.CASCADE)
+
+    class Meta():
+        db_table = 'link_to_team_member'
+        verbose_name = 'Связь участника с командой'
+        verbose_name_plural = 'Связи участников с командой'
+
+    def __str__(self):
+        return f"{self.user.username} in {self.team.name}"

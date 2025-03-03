@@ -44,6 +44,6 @@ class UsersList(APIView):
         serializer = UserSerializer(usernames, many=True)
         return Response(serializer.data)
 
-# class TournamentActions():
-#     def post(self, request, format=None):
-#         pass
+class TournamentActions():
+    def post(self, request, format=None):
+        pass
