@@ -1,7 +1,7 @@
 <template>
   <div class="pt-30 flex flex-col items-center">
     <h1 class="mb-25 text-5xl font-medium">{{ tournament.name }}</h1>
-    <form class="w-1/3">
+    <form @submit.prevent="submitForm" class="w-1/3">
       <div>
         <label for="username" class="block text-sm/6 font-semibold text-black">Название команды</label>
         <div class="mt-2">
@@ -23,7 +23,7 @@
         <div class="mt-2 flex justify-between space-x-5">
           <input
             :id="'nickname' + index"
-            v-model="member.nickname"
+            v-model="members[index]"
             placeholder="Введите" type="text" list="search-nicknames"
             class="block w-full rounded-xl bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-150">
             <datalist id="search-nicknames">
@@ -52,8 +52,9 @@ export default {
     return {
       tournament: {},
       allUsers:[],
-      members: [],
       team_name: '',
+      members: [],
+      description: '',
       errors: [],
     }
   },
@@ -87,12 +88,56 @@ export default {
         })
     },
     appendMember(){
-      this.members.push({ nickname: '' })
-      console.log(this.members)
+      this.members.push('')
     },
     removeMember(index){
       this.members.splice(index, 1)
     },
+    submitForm(){
+      this.errors = []
+
+      if(this.members.length === 0){
+        this.errors.push('Недостаточно участников для создания команды')
+      }
+
+      const emptyNames = this.members.filter(member => !member.trim());
+
+      if(emptyNames.length > 0){
+        this.errors.push('Один или несколько участников не заполнены')
+      }
+
+      if(!this.errors.length){
+        const formData = {
+          name: this.team_name,
+          description: this.description,
+          usernames: this.members,
+          id_tournament: this.tournament.id
+        }
+
+        const category_slug = this.$route.params.category_slug
+        const tournament_slug = this.$route.params.tournament_slug
+
+        axios
+          .post(`/api/v1/tournaments/${category_slug}/${tournament_slug}/teams/`, formData)
+          .then(
+            this.$router.push('/')
+          )
+          .catch(error => {
+            if(error.Response){
+              for(const property in error.Response.data){
+                this.errors.push(`${property}: ${error.Response.data[property]}`)
+              }
+
+              console.log(JSON.stringify(error.Response.data))
+            }
+            else if(error.message) {
+              this.errors.push('Произошла ошибка, попробуйте позже')
+
+              console.log(JSON.stringify(error))
+            }
+          })
+      }
+    }
   },
 }
 </script>
