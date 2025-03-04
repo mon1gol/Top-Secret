@@ -1,11 +1,12 @@
 from django.http import Http404
+from rest_framework import status
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 
-from .models import CategoryTournament, Tournament
-from .serializers import TournamentSerializer, CategorySerializer, UserSerializer
+from .models import *
+from .serializers import *
 
 
 class LatestTournamentsList(APIView):
@@ -44,6 +45,39 @@ class UsersList(APIView):
         serializer = UserSerializer(usernames, many=True)
         return Response(serializer.data)
 
-class TournamentActions():
-    def post(self, request, format=None):
-        pass
+class TeamActions(APIView):
+    def get_object(self, tournament_slug):
+        try:
+            return Tournament.objects.get(slug=tournament_slug)
+        except Tournament.DoesNotExist:
+            raise Http404
+
+    def get(self, request, category_slug, tournament_slug, format=None):
+        tournament = self.get_object(tournament_slug)
+        teams = Team.objects.filter(id_tournament=tournament)
+        serializer = TeamSerializer(teams, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, category_slug, tournament_slug, format=None):
+        serializer = TeamSerializer(data=request.data, context={'request': request})
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+        validated_data = serializer.validated_data   
+        usernames = validated_data.pop('usernames', [])
+
+        team = Team.objects.create(**validated_data)
+        users = User.objects.filter(username__in=usernames)
+        
+        for user in users:
+            LinkToTeamMember.objects.create(user=user, team=team)
+
+        return Response(
+            {
+                "message": "Команда успешно создана.",
+                "team_name": team.name,
+                "members": list(usernames)
+            },
+            status=status.HTTP_201_CREATED
+        )
