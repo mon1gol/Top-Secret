@@ -70,12 +70,12 @@ export default {
             this.$router.push('/log-in')
           )
           .catch(error => {
-            if(error.Response){
-              for(const property in error.Response.data){
-                this.errors.push(`${property}: ${error.Response.data[property]}`)
+            if(error.response){
+              for(const property in error.response.data){
+                this.errors.push(`${property}: ${error.response.data[property]}`)
               }
 
-              console.log(JSON.stringify(error.Response.data))
+              console.log(JSON.stringify(error.response.data))
             }
             else if(error.message) {
               this.errors.push('Произошла ошибка, попробуйте позже')
