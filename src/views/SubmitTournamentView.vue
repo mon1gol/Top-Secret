@@ -69,8 +69,8 @@ export default {
 
       axios
         .get(`/api/v1/tournaments/${category_slug}/${tournament_slug}/`)
-        .then(Response =>{
-          this.tournament = Response.data
+        .then(response =>{
+          this.tournament = response.data
           document.title = this.tournament.name
         })
         .catch(error => {
@@ -80,8 +80,8 @@ export default {
     getUsernames(){
       axios
         .get(`/api/v1/users-list/`)
-        .then(Response =>{
-          this.allUsers = Response.data
+        .then(response =>{
+          this.allUsers = response.data
         })
         .catch(error => {
           console.log(error)
@@ -119,16 +119,20 @@ export default {
 
         axios
           .post(`/api/v1/tournaments/${category_slug}/${tournament_slug}/teams/`, formData)
-          .then(
-            this.$router.push('/')
-          )
+          .then((response) =>{
+            if (response.status === 201) {
+              this.$router.push('/');
+            } else {
+              this.errors.push(`${response.status}`)
+            }
+          })
           .catch(error => {
-            if(error.Response){
-              for(const property in error.Response.data){
-                this.errors.push(`${property}: ${error.Response.data[property]}`)
+            if(error.response){
+              for(const property in error.response.data){
+                this.errors.push(`${property}: ${error.response.data[property]}`)
               }
 
-              console.log(JSON.stringify(error.Response.data))
+              console.log(JSON.stringify(error.response.data))
             }
             else if(error.message) {
               this.errors.push('Произошла ошибка, попробуйте позже')
