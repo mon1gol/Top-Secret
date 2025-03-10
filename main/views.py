@@ -67,6 +67,23 @@ class TeamActions(APIView):
         validated_data = serializer.validated_data   
         usernames = validated_data.pop('usernames', [])
 
+        tournament = self.get_object(tournament_slug)
+        teams_in_tournament = Team.objects.filter(id_tournament=tournament)
+
+        existing_members = LinkToTeamMember.objects.filter(
+            user__username__in=usernames,
+            team__in=teams_in_tournament
+        ).values_list('user__username', flat=True).distinct()
+
+        if existing_members.exists():
+            error_users = list(existing_members)
+            return Response(
+                {
+                    "error": f"Пользователи {error_users} уже участвуют в других командах этого турнира."
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
         team = Team.objects.create(**validated_data)
         users = User.objects.filter(username__in=usernames)
         
