@@ -57,8 +57,8 @@ export default {
 
       await axios
         .post("/api/v1/token/login/", formData)
-        .then(Response => {
-          const token = Response.data.auth_token
+        .then(response => {
+          const token = response.data.auth_token
           const commonStore = useCommonStore()
 
           commonStore.setToken(token)
@@ -69,9 +69,9 @@ export default {
           this.$router.push(toPath)
         })
         .catch(error => {
-          if (error.Response) {
-            for (const property in error.Response.data) {
-              this.errors.push(`${property}: ${error.Response.data[property]}`)
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`)
             }
           } else {
             this.errors.push('Произошла ошибка, попробуйте позже')
