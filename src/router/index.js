@@ -44,6 +44,14 @@ const router = createRouter({
         requireLogin: true
       }
     },
+    {
+      path: '/my-tournaments',
+      name: 'myTournaments',
+      component: () => import('../views/MyTournamentsView.vue'),
+      meta: {
+        requireLogin: true
+      }
+    },
 
   ],
 })
