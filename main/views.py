@@ -1,5 +1,6 @@
 from django.http import Http404
 from rest_framework import status
+from datetime import datetime
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -25,6 +26,24 @@ class TournamentDetail(APIView):
     def get(self, request, category_slug, tournament_slug, format=None):
         tournament = self.get_object(category_slug, tournament_slug)
         serializer = TournamentSerializer(tournament)
+        return Response(serializer.data)
+    
+class TournamentsByStatus(APIView):
+    def get(self, request, status_slug, format=None):
+        today = datetime.today().date()
+        if status_slug == 'upcoming':
+            tournaments = Tournament.objects.filter(tournamentrules__date_start__gt=today)
+        elif status_slug == 'comingnow':
+            tournaments = Tournament.objects.filter(
+                tournamentrules__date_start__lte=today,
+                tournamentrules__date_start__gte=today
+            )
+        elif status_slug == 'completed':
+            tournaments = Tournament.objects.filter(tournamentrules__date_start__lt=today)
+        else:
+            return Response({"error": "Неверный статус"}, status=400)
+        
+        serializer = TournamentSerializer(tournaments, many=True)
         return Response(serializer.data)
     
 class CategoryDetail(APIView):
