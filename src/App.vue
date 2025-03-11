@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <div class="space-x-5">
           <RouterLink v-if="!userStatus" to="/log-in">Войти</RouterLink>
           <RouterLink v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
+          <RouterLink v-if="userStatus" to="/my-tournaments">Мои соревнования</RouterLink>
           <RouterLink v-if="userStatus" to="/my-account">Профиль</RouterLink>
         </div>
       </nav>
