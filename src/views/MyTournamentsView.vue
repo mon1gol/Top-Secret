@@ -43,7 +43,7 @@ export default {
   methods: {
     getTournamentsByStatus(status_slug){
       axios
-          .get(`/api/v1/tournaments/${status_slug}/`)
+          .get(`/api/v1/tournaments/status/${status_slug}/`)
           .then((response) => {
             this.tournaments = response.data;
           })
