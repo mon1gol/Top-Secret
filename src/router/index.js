@@ -52,6 +52,14 @@ const router = createRouter({
         requireLogin: true
       }
     },
+    {
+      path: '/attach-project',
+      name: 'attachProject',
+      component: () => import('../views/AttachProjectView.vue'),
+      meta: {
+        requireLogin: true
+      }
+    },
 
   ],
 })
