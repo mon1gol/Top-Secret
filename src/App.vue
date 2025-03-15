@@ -6,12 +6,12 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <div>
-      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center justify-between gap-5 px-20 py-5 font-bold text-gray-700">
-        <div class="space-x-5">
+      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center justify-between gap-5 px-20 py-5 font-bold text-gray-900">
+        <div class="space-x-5 font-normal">
           <RouterLink to="/">Главная</RouterLink>
           <RouterLink to="/about">О сайте</RouterLink>
         </div>
-        <div class="space-x-5">
+        <div class="space-x-5 font-normal">
           <RouterLink v-if="!userStatus" to="/log-in">Войти</RouterLink>
           <RouterLink v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
           <RouterLink v-if="userStatus" to="/attach-project">Прикрепить проект</RouterLink>
