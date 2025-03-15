@@ -46,6 +46,29 @@ class TournamentsByStatus(APIView):
         serializer = TournamentSerializer(tournaments, many=True)
         return Response(serializer.data)
     
+class TournamentsByStatusByUser(APIView):
+    def get(self, request, status_slug, username_slug, format=None):
+        today = datetime.today().date()
+
+        user = User.objects.get(username=username_slug)
+        tournaments = Tournament.objects.filter(team__members__user=user).distinct()
+
+        if status_slug == 'upcoming':
+            tournaments_filtered = tournaments.filter(tournamentrules__date_start__gt=today)
+        elif status_slug == 'comingnow':
+            tournaments_filtered = tournaments.filter(
+                tournamentrules__date_start__lte=today,
+                tournamentrules__date_start__gte=today
+            )
+        elif status_slug == 'completed':
+            tournaments_filtered = tournaments.filter(tournamentrules__date_start__lt=today)
+        else:
+            return Response({"error": "Неверный статус"}, status=400)
+        
+        serializer = TournamentSerializer(tournaments_filtered, many=True)
+        return Response(serializer.data)
+    
+    
 class CategoryDetail(APIView):
     def get_object(self, category_slug):
         try:
