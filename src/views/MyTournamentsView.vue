@@ -18,7 +18,7 @@
     </div>
 
     <div v-if="!tournaments.length" class="flex justify-center mt-30">
-      <h1 class="text text-gray-500">На данный момент мероприятий нет</h1>
+      <h1 class="text-2xl text-gray-500">На данный момент мероприятий нет</h1>
     </div>
 
     <div v-else class="mt-10 grid grid-cols-3 justify-items-center gap-y-10">
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       tournaments:[],
+      username: localStorage.getItem("username"),
     }
   },
   mounted() {
@@ -47,7 +48,7 @@ export default {
   methods: {
     getTournamentsByStatus(status_slug){
       axios
-          .get(`/api/v1/tournaments/status/${status_slug}/`)
+          .get(`/api/v1/tournaments/status/${status_slug}/${this.username}/`)
           .then((response) => {
             this.tournaments = response.data;
           })
