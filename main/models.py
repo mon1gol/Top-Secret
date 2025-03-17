@@ -103,6 +103,7 @@ class LinkToTeamMember(models.Model):
         return f"{self.user.username} in {self.team.name}"
     
 class TeamProject(models.Model):
+    tournament = models.ForeignKey(Tournament, related_name='tournament_projects', on_delete=models.CASCADE)
     team = models.ForeignKey(Team, related_name='projects', on_delete=models.CASCADE)
     description = models.CharField(max_length=50)
     file_name = models.FileField(upload_to='uploads/projects', blank=True, null=True)
@@ -114,7 +115,7 @@ class TeamProject(models.Model):
         verbose_name_plural = 'Проекты'
 
     def __str__(self):
-        return f"{self.team.name} - {self.description} - {self.date_added}"
+        return f"{self.tournament.name} - {self.team.name} - {self.date_added}"
     
     def get_file_project(self):
         if self.file_name:

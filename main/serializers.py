@@ -63,6 +63,7 @@ class TeamProjectSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'team',
+            'tournament',
             'description',
             'file_name',
             'get_file_project',

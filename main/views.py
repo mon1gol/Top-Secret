@@ -174,6 +174,7 @@ class TeamProjectView(APIView):
         
         data = request.data.copy()
         data['team'] = team.id
+        data['tournament'] = tournament.id
 
         serializer = TeamProjectSerializer(data=data)
 
