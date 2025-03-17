@@ -101,3 +101,21 @@ class LinkToTeamMember(models.Model):
 
     def __str__(self):
         return f"{self.user.username} in {self.team.name}"
+    
+class TeamProject(models.Model):
+    team = models.ForeignKey(Team, related_name='projects', on_delete=models.CASCADE)
+    description = models.CharField(max_length=50)
+    file_name = models.FileField(upload_to='uploads/projects', blank=True, null=True)
+
+    class Meta():
+        db_table = 'team_projects'
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
+
+    def __str__(self):
+        return f"{self.team.name} - {self.description}"
+    
+    def get_file_project(self):
+        if self.file_name:
+            return 'http://127.0.0.1:8000' + self.file_name.url
+        return ''

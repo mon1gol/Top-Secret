@@ -139,3 +139,46 @@ class TeamActions(APIView):
             },
             status=status.HTTP_201_CREATED
         )
+    
+class TeamProjectView(APIView):
+    def get(self, request, tournament_slug, username_slug, format=None):
+        user = User.objects.get(username=username_slug)
+        tournament = Tournament.objects.get(slug=tournament_slug)
+
+        try:
+            link_to_team_member = LinkToTeamMember.objects.get(user=user, team__id_tournament=tournament)
+            team = link_to_team_member.team
+        except LinkToTeamMember.DoesNotExist:
+            return Response(
+                {"error": "Пользователь не состоит в команде этого турнира."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        team_project = TeamProject.objects.filter(team=team)
+        serializer = TeamProjectSerializer(team_project, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, tournament_slug, username_slug, format=None):
+        data = request.data
+        tournament = Tournament.objects.get(slug=tournament_slug)
+        user = User.objects.get(username=username_slug)
+
+        try:
+            link_to_team_member = LinkToTeamMember.objects.get(user=user, team__id_tournament=tournament)
+            team = link_to_team_member.team
+        except LinkToTeamMember.DoesNotExist:
+            return Response(
+                {"error": "Пользователь не состоит в команде этого турнира."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        
+        data = request.data.copy()
+        data['team'] = team.id
+
+        serializer = TeamProjectSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

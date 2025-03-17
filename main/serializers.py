@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import CategoryTournament, Tournament, Team
+from .models import *
 
 
 class TournamentSerializer(serializers.ModelSerializer):
@@ -55,4 +55,18 @@ class TeamSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'logo': {'required': False},
             'description': {'required': False},
+        }
+
+class TeamProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeamProject
+        fields = (
+            'id',
+            'team',
+            'description',
+            'file_name',
+            'get_file_project',
+        )
+        extra_kwargs = {
+            'file_name': {'required': False}
         }
