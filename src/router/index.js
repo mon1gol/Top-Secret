@@ -60,7 +60,11 @@ const router = createRouter({
         requireLogin: true
       }
     },
-
+    {
+      path: '/attach-project/:category_slug/:tournament_slug',
+      name: 'attachProjectToTournament',
+      component: () => import('../views/SelectTournamentToAttachView.vue'),
+    },
   ],
 })
 
