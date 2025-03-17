@@ -36,10 +36,10 @@ class TournamentsByStatus(APIView):
         elif status_slug == 'comingnow':
             tournaments = Tournament.objects.filter(
                 tournamentrules__date_start__lte=today,
-                tournamentrules__date_start__gte=today
+                tournamentrules__date_end__gte=today
             )
         elif status_slug == 'completed':
-            tournaments = Tournament.objects.filter(tournamentrules__date_start__lt=today)
+            tournaments = Tournament.objects.filter(tournamentrules__date_end__lt=today)
         else:
             return Response({"error": "Неверный статус"}, status=400)
         
@@ -58,16 +58,15 @@ class TournamentsByStatusByUser(APIView):
         elif status_slug == 'comingnow':
             tournaments_filtered = tournaments.filter(
                 tournamentrules__date_start__lte=today,
-                tournamentrules__date_start__gte=today
+                tournamentrules__date_end__gte=today
             )
         elif status_slug == 'completed':
-            tournaments_filtered = tournaments.filter(tournamentrules__date_start__lt=today)
+            tournaments_filtered = tournaments.filter(tournamentrules__date_end__lt=today)
         else:
             return Response({"error": "Неверный статус"}, status=400)
         
         serializer = TournamentSerializer(tournaments_filtered, many=True)
         return Response(serializer.data)
-    
     
 class CategoryDetail(APIView):
     def get_object(self, category_slug):
