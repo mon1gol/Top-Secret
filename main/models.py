@@ -106,6 +106,7 @@ class TeamProject(models.Model):
     team = models.ForeignKey(Team, related_name='projects', on_delete=models.CASCADE)
     description = models.CharField(max_length=50)
     file_name = models.FileField(upload_to='uploads/projects', blank=True, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta():
         db_table = 'team_projects'
@@ -113,7 +114,7 @@ class TeamProject(models.Model):
         verbose_name_plural = 'Проекты'
 
     def __str__(self):
-        return f"{self.team.name} - {self.description}"
+        return f"{self.team.name} - {self.description} - {self.date_added}"
     
     def get_file_project(self):
         if self.file_name:
