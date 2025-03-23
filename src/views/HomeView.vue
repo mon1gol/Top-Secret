@@ -5,15 +5,15 @@
 
       <div
         class="mt-30 bg-blue-one p-5 w-full flex flex-wrap justify-center gap-x-20 gap-y-5 relative rounded-xl shadow-sm">
-        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-5"
           @click="getCategoryBySlug('all')">
           Все
         </div>
-        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-5"
           @click="getCategoryBySlug('hackathons')">
           Хакатоны
         </div>
-        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-5"
           @click="getCategoryBySlug('olympiads')">
           Олимпиады
         </div>
