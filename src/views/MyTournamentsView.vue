@@ -16,26 +16,19 @@
         Завершенные
       </div>
     </div>
-
-    <div v-if="!tournaments.length" class="flex justify-center mt-30">
-      <h1 class="text-2xl text-gray-500">На данный момент мероприятий нет</h1>
-    </div>
-
-    <div v-else class="mt-10 grid grid-cols-3 justify-items-center gap-y-10">
-      <router-link :to="tournament.get_absolute_url" class="bg-blue-200 size-100 shadow-sm overflow-hidden rounded-xl"
-        v-for="tournament in tournaments" :key="tournament.id">
-        <img class="bg-blue-two h-70 w-100 object-cover" :src="tournament.get_image">
-        <div class="p-5 text-2xl">{{ tournament.name }}</div>
-      </router-link>
-    </div>
+    <CardsTournamentComponent :tournaments="this.tournaments" :linkIncrement="''" :isHome="false"/>
   </div>
 </template>
 <script>
+import CardsTournamentComponent from '@/components/CardsTournamentComponent.vue';
 import axios from 'axios';
 
 
 export default {
   name: "MyTournamentsView",
+  components:{
+    CardsTournamentComponent,
+  },
   data() {
     return {
       tournaments:[],
