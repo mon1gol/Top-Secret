@@ -4,7 +4,19 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+class TournamentRulesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TournamentRules
+        fields = (
+            "min_members_in_team",
+            "max_members_in_team",
+            "date_start",
+            "date_end",
+            "id_tournament",
+        )
+
 class TournamentSerializer(serializers.ModelSerializer):
+    rules = TournamentRulesSerializer(source="tournamentrules", read_only=True)
     class Meta:
         model = Tournament
         fields = (
@@ -12,7 +24,8 @@ class TournamentSerializer(serializers.ModelSerializer):
             "get_absolute_url",
             "get_image",
             "name",
-            "description"
+            "description",
+            "rules",
         )
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -40,7 +53,6 @@ class TeamSerializer(serializers.ModelSerializer):
         child=serializers.CharField(),
         write_only=True
     )
-
     class Meta:
         model = Team
         fields = (

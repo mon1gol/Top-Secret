@@ -13,6 +13,7 @@ from .serializers import *
 class LatestTournamentsList(APIView):
     def get(self, request, format=None):
         tournaments = Tournament.objects.all()
+        
         serializer = TournamentSerializer(tournaments, many=True)
         return Response(serializer.data)
     
