@@ -19,7 +19,7 @@
         v-for="(member, index) in members"
         :key="index"
       >
-        <label :for="'nickname-' + index" class="mt-2 block text-sm/6 font-semibold text-black">Никнейм</label>
+        <label :for="'nickname-' + index" class="mt-2 block text-sm/6 font-semibold text-black">Логин</label>
         <div class="mt-2 flex justify-between space-x-5">
           <input
             :id="'nickname' + index"
@@ -129,7 +129,7 @@ export default {
           .catch(error => {
             if(error.response){
               for(const property in error.response.data){
-                this.errors.push(`${property}: ${error.response.data[property]}`)
+                this.errors.push(`${error.response.data[property]}`)
               }
 
               console.log(JSON.stringify(error.response.data))

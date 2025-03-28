@@ -1,5 +1,5 @@
 <template>
-  <div class="about m-5">
+  <div class="about">
     <h1>О сайте</h1>
   </div>
 </template>
