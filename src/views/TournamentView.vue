@@ -43,9 +43,9 @@ export default {
 
       axios
         .get(`/api/v1/tournaments/${category_slug}/${tournament_slug}/`)
-        .then(Response =>{
+        .then(response =>{
           this.tournament = Response.data
-          if(Response.data.rules){this.tournament_rules = Response.data.rules}
+          if(response.data.rules){this.tournament_rules = response.data.rules}
           document.title = this.tournament.name
         })
         .catch(error => {
@@ -55,7 +55,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
