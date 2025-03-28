@@ -4,8 +4,12 @@
       <div>
         <h1 class="text-6xl">{{ tournament.name }}</h1>
         <div class="mt-10 flex flex-col gap-2">
-          <div>Дата начала: </div>
-          <div>Дата окончания: </div>
+          <div>
+            <div class="flex items-center">Дата начала: <div class="ml-2 bg-blue-two rounded-2xl p-1">{{ tournament_rules.date_start }}</div></div>
+          </div>
+          <div>
+            <div class="flex items-center">Дата окончания: <div class="ml-2 bg-blue-two rounded-2xl p-1">{{ tournament_rules.date_end }}</div></div>
+          </div>
         </div>
 
         <div class="mt-10">
@@ -54,6 +58,7 @@ export default {
   data() {
     return {
       tournament: {},
+      tournament_rules: {},
       previous_project: {},
       username: localStorage.getItem('username'),
       file_name: null,
@@ -73,6 +78,7 @@ export default {
         .get(`/api/v1/tournaments/${category_slug}/${tournament_slug}/`)
         .then(response => {
           this.tournament = response.data
+          if(response.data.rules){this.tournament_rules = response.data.rules}
           document.title = this.tournament.name
         })
         .catch(error => {
@@ -142,7 +148,7 @@ export default {
           .catch(error => {
             if(error.response){
               for(const property in error.response.data){
-                this.errors.push(`${property}: ${error.response.data[property]}`)
+                this.errors.push(`${error.response.data[property]}`)
               }
 
               console.log(JSON.stringify(error.response.data))
