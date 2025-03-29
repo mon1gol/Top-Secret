@@ -12,4 +12,5 @@ urlpatterns = [
     path('tournaments/status/<slug:status_slug>/<slug:username_slug>/', views.TournamentsByStatusByUser.as_view()),
     path('tournaments/<slug:category_slug>/<slug:tournament_slug>/teams/', views.TeamActions.as_view()), # teams
     path('projects/<slug:tournament_slug>/<slug:username_slug>/', views.TeamProjectView.as_view()),
+    path('team-results/<slug:username_slug>/', views.TeamResults.as_view()),
 ]

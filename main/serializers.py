@@ -83,3 +83,29 @@ class TeamProjectSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'file_name': {'required': False}
         }
+
+class AssessmentSerializer(serializers.ModelSerializer):
+    criterion = serializers.CharField(source='criterion.name')
+    max_score = serializers.IntegerField(source='criterion.max_score')
+    class Meta:
+        model = TeamAssessment
+        fields = (
+            'criterion', 
+            'score', 
+            'max_score'
+        )
+
+class TeamSerializer(serializers.ModelSerializer):
+    tournament = serializers.CharField(source='id_tournament.name')
+    assessments = AssessmentSerializer(many=True, read_only=True)
+    class Meta:
+        model = Team
+        fields = (
+            'id', 
+            'name', 
+            'tournament',
+            'assessments'
+        )
+    def get_assessments(self, obj):
+        filtered_assessments = getattr(obj, 'filtered_assessments', obj.assessments.all())
+        return AssessmentSerializer(filtered_assessments, many=True).data

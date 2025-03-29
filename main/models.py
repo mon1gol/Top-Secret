@@ -58,16 +58,46 @@ class TournamentRules(models.Model):
         verbose_name_plural = 'Правила'
 
 
-class TournamentAssessment(models.Model):
-    name_criterion = models.CharField(max_length=50)
-    result = models.IntegerField()
-    id_tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
-    id_team = models.ForeignKey('Team', on_delete=models.CASCADE)
+class Criterion(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Название критерия')
+    description = models.TextField(verbose_name='Описание', blank=True, null=True)
+    max_score = models.PositiveIntegerField(verbose_name='Максимальный балл')
 
     class Meta:
-        db_table = 'tournament_assessment'
+        db_table = 'criterion'
         verbose_name = 'Критерий'
         verbose_name_plural = 'Критерии'
+
+    def __str__(self):
+        return self.name
+    
+
+class TournamentCriterion(models.Model):
+    tournament = models.ForeignKey(Tournament, related_name='criteria', on_delete=models.CASCADE)
+    criterion = models.ForeignKey(Criterion, related_name='tournaments', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'tournament_criterion'
+        verbose_name = 'Критерий соревнования'
+        verbose_name_plural = 'Критерии соревнований'
+
+    def __str__(self):
+        return f"{self.tournament.name} - {self.criterion.name}"
+
+
+class TeamAssessment(models.Model):
+    team = models.ForeignKey('Team', related_name='assessments', on_delete=models.CASCADE)
+    tournament = models.ForeignKey(Tournament, related_name='assessments', on_delete=models.CASCADE)
+    criterion = models.ForeignKey(Criterion, related_name='assessments', on_delete=models.CASCADE)
+    score = models.PositiveIntegerField(verbose_name='Оценка')
+
+    class Meta:
+        db_table = 'team_assessment'
+        verbose_name = 'Оценка команды'
+        verbose_name_plural = 'Оценки команд'
+
+    def __str__(self):
+        return f"{self.team.name} - {self.criterion.name}: {self.score}"
 
 
 class Team(models.Model):
@@ -83,7 +113,7 @@ class Team(models.Model):
         verbose_name_plural = 'Команды'
     
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.id_tournament.name}"
 
     def get_image(self):
         if self.logo:
