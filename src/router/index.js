@@ -65,6 +65,11 @@ const router = createRouter({
       name: 'attachProjectToTournament',
       component: () => import('../views/SelectTournamentToAttachView.vue'),
     },
+    {
+      path: '/my-results',
+      name: 'MyResults',
+      component: () => import('../views/MyResultsView.vue'),
+    },
   ],
 })
 

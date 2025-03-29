@@ -16,6 +16,13 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
           <RouterLink v-if="userStatus" to="/attach-project">Прикрепить проект</RouterLink>
           <RouterLink v-if="userStatus" to="/my-tournaments">Мои соревнования</RouterLink>
+          <div v-if="userStatus" class="relative inline-block">
+            <div class="cursor-pointer">Результаты</div>
+            <div class="dropdown-menu absolute hidden bg-white text-black py-2 px-4 rounded shadow-lg">
+                <RouterLink to="/my-results">Мои результаты</RouterLink>
+                <RouterLink to="/">Лучшие команды</RouterLink>
+            </div>
+          </div>
           <RouterLink v-if="userStatus" to="/my-account">Профиль</RouterLink>
         </div>
       </nav>
