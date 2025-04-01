@@ -1,5 +1,5 @@
 <template>
-  <div class="h-lvh bg-white-one w-lvw p-20 grid grid-cols-2 gap-15">
+  <div class="h-lvh bg-white-one w-lvw p-40 grid grid-cols-2 gap-15">
     <div>
       <h1 class="text-6xl">{{ tournament.name }}</h1>
       <div class="mt-10">{{ tournament.description }}</div>
@@ -16,8 +16,8 @@
         <button class="bg-blue-four mt-10 cursor-pointer rounded-2xl px-10 py-5">Подать заявку</button>
       </router-link>
     </div>
-    <div class="">
-      <img class="h-100 w-150 object-cover shadow-2xl" :src="tournament.get_image" :alt="tournament.name">
+    <div>
+      <img class="h-[75lvh] w-full object-cover shadow-2xl" :src="tournament.get_image" :alt="tournament.name">
     </div>
   </div>
 </template>
