@@ -109,3 +109,18 @@ class TeamSerializer(serializers.ModelSerializer):
     def get_assessments(self, obj):
         filtered_assessments = getattr(obj, 'filtered_assessments', obj.assessments.all())
         return AssessmentSerializer(filtered_assessments, many=True).data
+    
+
+class TeamCreateSerializer(serializers.ModelSerializer):
+    usernames = serializers.ListField(
+        child=serializers.CharField(max_length=150),
+        write_only=True
+    )
+    class Meta:
+        model = Team
+        fields = (
+            'id',
+            'name',
+            'id_tournament',
+            'usernames',
+        )

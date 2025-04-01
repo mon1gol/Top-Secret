@@ -97,11 +97,11 @@ class TeamActions(APIView):
     def get(self, request, category_slug, tournament_slug, format=None):
         tournament = self.get_object(tournament_slug)
         teams = Team.objects.filter(id_tournament=tournament)
-        serializer = TeamSerializer(teams, many=True)
+        serializer = TeamCreateSerializer(teams, many=True)
         return Response(serializer.data)
 
     def post(self, request, category_slug, tournament_slug, format=None):
-        serializer = TeamSerializer(data=request.data, context={'request': request})
+        serializer = TeamCreateSerializer(data=request.data, context={'request': request})
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
