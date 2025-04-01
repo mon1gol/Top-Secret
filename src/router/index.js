@@ -7,7 +7,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+        path: '/',
       name: 'home',
       component: HomeView,
     },
@@ -25,6 +25,9 @@ const router = createRouter({
       path: '/:category_slug/:tournament_slug/submit',
       name: 'submitTournament',
       component: () => import('../views/SubmitTournamentView.vue'),
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/sign-up',
