@@ -50,6 +50,7 @@ export default {
   name: 'SubmitTournamentView',
   data() {
     return {
+      captain: localStorage.getItem.username,
       tournament: {},
       allUsers:[],
       team_name: '',
