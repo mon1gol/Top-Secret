@@ -42,6 +42,9 @@ export default {
       errors: []
     }
   },
+  components:{
+
+  },
   mounted() {
     document.title = 'Login'
   },
