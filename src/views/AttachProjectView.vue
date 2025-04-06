@@ -1,13 +1,16 @@
 <template>
-  <div class="p-10 pt-40">
-    <div class="text-6xl font-bold text-center">Прикрепить проект</div>
-    <h2 class="mt-10 text-3xl text-center">Выберите соревнование</h2>
-    <CardsTournamentComponent :tournaments="this.tournaments" :linkIncrement="'/attach-project'" :isHome="false"/>
+  <div class="pt-40">
+    <AppContainer>
+      <div class="text-6xl font-bold text-center">Прикрепить проект</div>
+      <h2 class="mt-10 mb-20 text-3xl text-center">Выберите соревнование</h2>
+      <CardsTournamentComponent :tournaments="this.tournaments" :linkIncrement="'/attach-project'" :isHome="false"/>
+    </AppContainer>
   </div>
 
 </template>
 
 <script>
+import AppContainer from '@/components/AppContainerComponent.vue';
 import CardsTournamentComponent from '@/components/CardsTournamentComponent.vue';
 import axios from 'axios';
 
@@ -16,6 +19,7 @@ export default {
   name: 'AttachProjectView',
   components:{
     CardsTournamentComponent,
+    AppContainer
   },
   data() {
     return {
