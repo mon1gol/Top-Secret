@@ -1,25 +1,28 @@
 <template>
-  <div class="p-10 pt-40">
-    <div class="text-6xl font-bold text-center">Мои соревнования</div>
-
-    <div
-      class="mt-30 bg-blue-one p-5 w-full flex flex-wrap justify-center gap-x-20 gap-y-5 relative rounded-xl shadow-sm">
-      <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10" @click="getTournamentsByStatus('upcoming')">
-        Предстоящие
+  <div class="pt-40">
+    <AppContainer>
+      <div class="text-6xl font-bold text-center">Мои соревнования</div>
+      <div
+        class="mt-30 bg-blue-one p-5 w-full flex flex-wrap justify-center gap-x-20 gap-y-5 relative rounded-xl shadow-sm">
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10" @click="getTournamentsByStatus('upcoming')">
+          Предстоящие
+        </div>
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
+          @click="getTournamentsByStatus('comingnow')">
+          Идут в данный момент
+        </div>
+        <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
+          @click="getTournamentsByStatus('completed')">
+          Завершенные
+        </div>
       </div>
-      <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
-        @click="getTournamentsByStatus('comingnow')">
-        Идут в данный момент
-      </div>
-      <div class="px-10 h-full cursor-pointer category-btn-hover-dark relative z-10"
-        @click="getTournamentsByStatus('completed')">
-        Завершенные
-      </div>
-    </div>
-    <CardsTournamentComponent :tournaments="this.tournaments" :linkIncrement="''" :isHome="false"/>
+      <CardsTournamentComponent :tournaments="this.tournaments" :linkIncrement="''" :isHome="false"/>
+    </AppContainer>
   </div>
 </template>
+
 <script>
+import AppContainer from '@/components/AppContainerComponent.vue';
 import CardsTournamentComponent from '@/components/CardsTournamentComponent.vue';
 import axios from 'axios';
 
@@ -28,6 +31,7 @@ export default {
   name: "MyTournamentsView",
   components:{
     CardsTournamentComponent,
+    AppContainer
   },
   data() {
     return {
