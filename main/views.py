@@ -202,3 +202,21 @@ class TeamResults(APIView):
                 {'error': 'Пользователь не найден'},
                 status=status.HTTP_404_NOT_FOUND
             )
+        
+class TeamResultDetail(APIView):
+    def get(self, request, username_slug, team_id, format=None):
+        try:
+            user = User.objects.get(username=username_slug)
+            user_team_links = user.team_memberships.all()
+            teams = [link.team for link in user_team_links if link.team.id == team_id]
+            team = teams[0]
+            
+            team.filtered_assessments = team.assessments.filter(tournament=team.id_tournament)
+
+            serializer = TeamSerializer(team)
+            return Response(serializer.data, status=status.HTTP_200_OK)       
+        except User.DoesNotExist:
+            return Response(
+                {'error': 'Пользователь не найден'},
+                status=status.HTTP_404_NOT_FOUND
+            )

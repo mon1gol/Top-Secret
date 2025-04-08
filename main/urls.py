@@ -13,4 +13,5 @@ urlpatterns = [
     path('tournaments/<slug:category_slug>/<slug:tournament_slug>/teams/', views.TeamActions.as_view()), # teams
     path('projects/<slug:tournament_slug>/<slug:username_slug>/', views.TeamProjectView.as_view()),
     path('team-results/<slug:username_slug>/', views.TeamResults.as_view()),
+    path('team-results/<slug:username_slug>/<int:team_id>/', views.TeamResultDetail.as_view()),
 ]

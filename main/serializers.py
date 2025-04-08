@@ -104,6 +104,7 @@ class TeamSerializer(serializers.ModelSerializer):
             'id', 
             'name', 
             'tournament',
+            'get_absolute_url',
             'assessments'
         )
     def get_assessments(self, obj):

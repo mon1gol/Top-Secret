@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 
 class CategoryTournament(models.Model):
@@ -102,6 +103,7 @@ class TeamAssessment(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     logo = models.ImageField(upload_to='uploads/team_logo', blank=True, null=True, verbose_name='Логотип')
     id_tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE)
@@ -111,6 +113,19 @@ class Team(models.Model):
         ordering = ('name',)
         verbose_name = 'Команду'
         verbose_name_plural = 'Команды'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            unique_slug = base_slug
+            counter = 1
+
+            while Team.objects.filter(slug=unique_slug).exists():
+                unique_slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = unique_slug
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.name} - {self.id_tournament.name}"
@@ -118,7 +133,10 @@ class Team(models.Model):
     def get_image(self):
         if self.logo:
             return 'http://127.0.0.1:8000' + self.logo.url
-        return ''
+        return ''   
+    
+    def get_absolute_url(self):
+        return f'/{self.id}/'
     
 class LinkToTeamMember(models.Model):
     user = models.ForeignKey(User, related_name='team_memberships', on_delete=models.CASCADE)
