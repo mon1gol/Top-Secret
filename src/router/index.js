@@ -73,6 +73,11 @@ const router = createRouter({
       name: 'MyResults',
       component: () => import('../views/MyResultsView.vue'),
     },
+    {
+      path: '/my-results/:id_team',
+      name: 'ResultsTeam',
+      component: () => import('../views/ResultPageView.vue'),
+    },
   ],
 })
 
