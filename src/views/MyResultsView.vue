@@ -8,7 +8,7 @@
               <h1 class="text-2xl">{{result.name}}</h1>
               <h2>{{result.tournament}}</h2>
               <div class="flex justify-end">
-                <router-link to="/" class="hover:underline">Доступны результаты ➡️</router-link>
+                <router-link :to="'my-results' + result.get_absolute_url" class="hover:underline">Доступны результаты ➡️</router-link>
               </div>
             </div>
           </div>
@@ -38,7 +38,6 @@ export default {
   methods: {
     getTeamResults() {
       axios
-
         .get(`/api/v1/team-results/${this.username}/`)
         .then((response) => {
           this.teams_result = response.data;
