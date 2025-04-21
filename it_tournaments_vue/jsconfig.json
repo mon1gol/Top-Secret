@@ -4,5 +4,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["it_tournaments_vue/node_modules", "it_tournaments_vue/dist"]
 }
