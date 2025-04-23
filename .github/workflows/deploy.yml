@@ -1,0 +1,42 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Клонируем репозиторий
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Шаг 2: Настройка SSH
+      - name: Set up SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      # Шаг 3: Подключение к серверу и выполнение деплоя
+      - name: Deploy to VPS
+        run: |
+          ssh root@176.124.200.178 << 'EOF'
+          cd /webapps/it_tournaments
+          source /webapps/it_tournaments/venv_it_competitions_3.13.1/bin/activate
+          git pull origin prod
+          cd /webapps/it_tournaments/it_tournaments_django/
+          pip install -r req.txt
+
+          cd /webapps/it_tournaments/it_tournaments_vue/
+          npm install
+          npm run build
+          cd /webapps/it_tournaments/it_tournaments_django/
+          python manage.py migrate --noinput
+
+          supervisorctl restart it_tournaments_django
+          service nginx restart
+          EOF
