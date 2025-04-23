@@ -19,9 +19,14 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.IT_TOURNAMENTS_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
-      # Шаг 3: Подключение к серверу и выполнение деплоя
+      # Шаг 3: Получаем known_hosts
+      - name: Get known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan 176.124.200.178 >> ~/.ssh/known_hosts
+
+      # Шаг 4: Подключение к серверу и выполнение деплоя
       - name: Deploy to VPS
         run: |
           ssh root@176.124.200.178 << 'EOF'
