@@ -56,6 +56,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://tournaments.it-tournaments.ru"
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://apitournaments.it-tournaments.ru',
+    'http://localhost:8000',  # Добавьте локальный адрес, если нужно
+]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
