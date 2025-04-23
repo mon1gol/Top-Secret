@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - prod
+      - deploy
 
 jobs:
   deploy:
@@ -27,7 +27,7 @@ jobs:
           ssh root@176.124.200.178 << 'EOF'
           cd /webapps/it_tournaments
           source /webapps/it_tournaments/venv_it_competitions_3.13.1/bin/activate
-          git pull origin prod
+          git pull origin deploy
           cd /webapps/it_tournaments/it_tournaments_django/
           pip install -r req.txt
 
