@@ -42,7 +42,7 @@ class Tournament(models.Model):
 
     def get_image(self):
         if self.logo:
-            return 'http://127.0.0.1:8000' + self.logo.url
+            return 'https://apitournaments.it-tournaments.ru/' + self.logo.url
         return ''
 
 
@@ -132,7 +132,7 @@ class Team(models.Model):
 
     def get_image(self):
         if self.logo:
-            return 'http://127.0.0.1:8000' + self.logo.url
+            return 'https://apitournaments.it-tournaments.ru/' + self.logo.url
         return ''   
     
     def get_absolute_url(self):
@@ -167,5 +167,5 @@ class TeamProject(models.Model):
     
     def get_file_project(self):
         if self.file_name:
-            return 'http://127.0.0.1:8000' + self.file_name.url
+            return 'https://apitournaments.it-tournaments.ru/' + self.file_name.url
         return ''
