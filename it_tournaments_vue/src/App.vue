@@ -4,18 +4,18 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div>
-      <nav class="bg-blue-four fixed flex h-15 w-lvw items-center justify-between gap-5 px-20 py-5 font-bold text-gray-900 z-10">
-        <div class="space-x-5 font-normal">
-          <RouterLink to="/">Главная</RouterLink>
-          <RouterLink to="/about">О сайте</RouterLink>
+  <header class="bg-blue-four">
+    <div class="flex justify-center">
+      <nav class="container mx-auto px-4 fixed flex h-15 items-center justify-between gap-5 py-5 font-medium text-gray-900 z-10">
+        <div class="space-x-5">
+          <RouterLink class="category-btn-hover-white" to="/">Главная</RouterLink>
+          <RouterLink class="category-btn-hover-white" to="/about">О сайте</RouterLink>
+          <RouterLink class="category-btn-hover-white" v-if="userStatus" to="/attach-project">Прикрепить проект</RouterLink>
+          <RouterLink class="category-btn-hover-white" v-if="userStatus" to="/my-tournaments">Мои соревнования</RouterLink>
         </div>
-        <div class="space-x-5 font-normal">
-          <RouterLink v-if="!userStatus" to="/log-in">Войти</RouterLink>
-          <RouterLink v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
-          <RouterLink v-if="userStatus" to="/attach-project">Прикрепить проект</RouterLink>
-          <RouterLink v-if="userStatus" to="/my-tournaments">Мои соревнования</RouterLink>
+        <div class="space-x-5">
+          <RouterLink class="category-btn-hover-white" v-if="!userStatus" to="/sign-up">Регистрация</RouterLink>
+          <RouterLink class="category-btn-hover-white" v-if="!userStatus" to="/log-in">Войти</RouterLink>
           <div v-if="userStatus" class="relative inline-block">
             <div class="cursor-pointer">Результаты</div>
             <div class="dropdown-menu absolute hidden bg-white text-black py-2 px-4 rounded shadow-lg">
@@ -23,7 +23,7 @@ import { RouterLink, RouterView } from 'vue-router'
                 <RouterLink to="/">Лучшие команды</RouterLink>
             </div>
           </div>
-          <RouterLink v-if="userStatus" to="/my-account">Профиль</RouterLink>
+          <RouterLink class="category-btn-hover-white" v-if="userStatus" to="/my-account">Профиль</RouterLink>
         </div>
       </nav>
     </div>
