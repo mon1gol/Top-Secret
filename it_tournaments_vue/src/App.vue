@@ -4,9 +4,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header class="bg-blue-four">
-    <div class="flex justify-center">
-      <nav class="container mx-auto px-4 fixed flex h-15 items-center justify-between gap-5 py-5 font-medium text-gray-900 z-10">
+  <header>
+    <div class="bg-white-one flex justify-center fixed w-lvw">
+      <nav class="container mx-auto px-4 flex h-15 items-center justify-between gap-5 py-5 font-medium text-gray-900 z-10">
         <div class="space-x-5">
           <RouterLink class="category-btn-hover-white" to="/">Главная</RouterLink>
           <RouterLink class="category-btn-hover-white" to="/about">О сайте</RouterLink>
