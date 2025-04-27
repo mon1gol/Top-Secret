@@ -116,7 +116,7 @@ class Team(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
+            base_slug = slugify(self.name)
             unique_slug = base_slug
             counter = 1
 
