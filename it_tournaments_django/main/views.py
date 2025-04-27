@@ -119,9 +119,10 @@ class TeamActions(APIView):
 
         if existing_members.exists():
             error_users = list(existing_members)
+            error_users = ", ".join(error_users)
             return Response(
                 {
-                    "error": f"Пользователи {error_users} уже участвуют в других командах этого турнира."
+                    "error": f"Один или несколько пользователей - {error_users} уже участвуют в других командах этого турнира."
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
