@@ -72,7 +72,7 @@ export default {
         axios
           .get(`/api/v1/tournaments/${slug}/`)
           .then((response) => {
-            this.latestTournaments = response.data;
+            this.latestTournaments = response.data.tournaments;
           })
           .catch((error) => {
             console.log(error);
