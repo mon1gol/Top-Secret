@@ -57,12 +57,7 @@ export default {
       axios
         .get('/api/v1/latest-tournaments/')
         .then((response) => {
-          const currentDate = new Date().toISOString().split('T')[0];
-          const tournament_list = response.data;
-
-          this.latestTournaments = tournament_list.filter((tournament) => {
-            return tournament.rules.date_start > currentDate;
-          });
+          this.latestTournaments = response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -77,12 +72,7 @@ export default {
         axios
           .get(`/api/v1/tournaments/${slug}/`)
           .then((response) => {
-            const currentDate = new Date().toISOString().split('T')[0];
-            const tournament_list = response.data.tournaments;
-
-            this.latestTournaments = tournament_list.filter((tournament) => {
-              return tournament.rules.date_start > currentDate;
-            });
+            this.latestTournaments = response.data;
           })
           .catch((error) => {
             console.log(error);
