@@ -1,9 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-// import { Icon } from "@iconify/vue";
+import { Toaster } from '@/components/ui/sonner'
 </script>
 
 <template>
+  <Toaster />
   <header>
     <div class="bg-white-one flex justify-center fixed w-lvw">
       <nav class="container mx-auto px-4 flex h-15 items-center justify-between gap-5 py-5 font-medium text-gray-900 z-10">
@@ -28,8 +29,10 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header>
-
   <RouterView />
+  <ClientOnly>
+    <Toaster />
+  </ClientOnly>
 </template>
 
 <script>
@@ -59,5 +62,8 @@ export default {
       axios.defaults.headers.common['Authorization'] = ""
     }
   },
+  components:{
+    Toaster,
+  }
 }
 </script>
