@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
 }
 
+h1, h2, h3, div, input {
+    color: #333333;
+}
+
 ::-webkit-scrollbar {
     width: 6px;
     border-radius: 10px;
