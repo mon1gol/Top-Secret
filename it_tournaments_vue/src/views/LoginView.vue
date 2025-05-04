@@ -24,7 +24,7 @@
         </div>
         <hr>
         <div class="text-center">Или <router-link class="text-blue-700 border-b-1 hover:text-blue-900"
-            to="/sign-up">зарегестрируйтесь</router-link></div>
+            to="/sign-up">зарегистрируйтесь</router-link></div>
       </form>
     </div>
   </div>
