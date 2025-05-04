@@ -40,7 +40,7 @@ export default {
   name: 'HomeView',
   components: {
     CardsTournamentComponent,
-    AppContainer
+    AppContainer,
   },
   data() {
     return {

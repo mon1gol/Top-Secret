@@ -13,29 +13,28 @@
 
         <div class="mt-15 mb-5 flex justify-between items-center">
           <h1 class="text-2xl font-medium">Участники</h1>
-          <button type="button" v-on:click="appendMember()" class="bg-blue-one py-2 px-4 rounded-xl cursor-pointer">Добавить</button>
+          <button type="button" v-on:click="appendMember()"
+            class="bg-blue-one py-2 px-4 rounded-xl cursor-pointer">Добавить</button>
         </div>
 
-        <div
-          v-for="(member, index) in members"
-          :key="index"
-        >
+        <div v-for="(member, index) in members" :key="index">
           <label :for="'nickname-' + index" class="mt-2 block text-sm/6 font-semibold text-black">Логин</label>
           <div class="mt-2 flex justify-between space-x-5">
-            <input
-              :id="'nickname' + index"
-              v-model="members[index]"
-              placeholder="Введите" type="text" list="search-nicknames"
+            <input :id="'nickname' + index" v-model="members[index]" placeholder="Введите" type="text"
+              list="search-nicknames"
               class="block w-full rounded-xl bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 placeholder:text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 transition-all duration-150">
-              <datalist id="search-nicknames">
-                <option v-for="user in allUsers" :key="user.id" :value="user.username">{{ user.username }}</option>
-              </datalist>
-              <button type="button" v-on:click="removeMember(index)" class="bg-blue-one py-2 px-4 rounded-xl cursor-pointer">Удалить</button>
+            <datalist id="search-nicknames">
+              <option v-for="user in allUsers" :key="user.id" :value="user.username">{{ user.username }}</option>
+            </datalist>
+            <button type="button" v-on:click="removeMember(index)"
+              class="bg-blue-one py-2 px-4 rounded-xl cursor-pointer">Удалить</button>
           </div>
         </div>
 
         <button
-          class="mt-7 block w-full rounded-xl bg-blue-three btn-hover-dark z-3 px-3.5 py-2 text-white cursor-pointer">Подать заявку</button>
+          class="mt-7 block w-full rounded-xl bg-blue-three btn-hover-dark z-3 px-3.5 py-2 text-white cursor-pointer">
+          Подать заявку
+        </button>
         <div class="text-red-500 text-center" v-if="errors.length">
           <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
         </div>
@@ -46,6 +45,7 @@
 
 <script>
 import AppContainer from '@/components/AppContainerComponent.vue';
+import { toast } from 'vue-sonner'
 import axios from 'axios';
 
 
@@ -55,14 +55,15 @@ export default {
     return {
       captain: localStorage.getItem.username,
       tournament: {},
-      allUsers:[],
+      allUsers: [],
       team_name: '',
       members: [],
       description: '',
+      createdTeam: false,
       errors: [],
     }
   },
-  components:{
+  components: {
     AppContainer,
   },
   mounted() {
@@ -70,13 +71,15 @@ export default {
     this.getUsernames()
   },
   methods: {
-    getTournament(){
+    toast,
+
+    getTournament() {
       const category_slug = this.$route.params.category_slug
       const tournament_slug = this.$route.params.tournament_slug
 
       axios
         .get(`/api/v1/tournaments/${category_slug}/${tournament_slug}/`)
-        .then(response =>{
+        .then(response => {
           this.tournament = response.data
           document.title = this.tournament.name
         })
@@ -84,36 +87,36 @@ export default {
           console.log(error)
         })
     },
-    getUsernames(){
+    getUsernames() {
       axios
         .get(`/api/v1/users-list/`)
-        .then(response =>{
+        .then(response => {
           this.allUsers = response.data
         })
         .catch(error => {
           console.log(error)
         })
     },
-    appendMember(){
+    appendMember() {
       this.members.push('')
     },
-    removeMember(index){
+    removeMember(index) {
       this.members.splice(index, 1)
     },
-    submitForm(){
+    submitForm() {
       this.errors = []
 
-      if(this.members.length === 0){
+      if (this.members.length === 0) {
         this.errors.push('Недостаточно участников для создания команды')
       }
 
       const emptyNames = this.members.filter(member => !member.trim());
 
-      if(emptyNames.length > 0){
+      if (emptyNames.length > 0) {
         this.errors.push('Один или несколько участников не заполнены')
       }
 
-      if(!this.errors.length){
+      if (!this.errors.length) {
         const formData = {
           name: this.team_name,
           description: this.description,
@@ -126,22 +129,28 @@ export default {
 
         axios
           .post(`/api/v1/tournaments/${category_slug}/${tournament_slug}/teams/`, formData)
-          .then((response) =>{
+          .then((response) => {
             if (response.status === 201) {
-              this.$router.push('/');
+              toast('Команда успешно создана', {})
             } else {
               this.errors.push(`${response.status}`)
             }
           })
           .catch(error => {
-            if(error.response){
-              for(const property in error.response.data){
+            toast('Команда не создана', {
+              style: {
+                background: '#fda4af'
+              },
+            })
+
+            if (error.response) {
+              for (const property in error.response.data) {
                 this.errors.push(`${error.response.data[property]}`)
               }
 
               console.log(JSON.stringify(error.response.data))
             }
-            else if(error.message) {
+            else if (error.message) {
               this.errors.push('Произошла ошибка, попробуйте позже')
 
               console.log(JSON.stringify(error))
