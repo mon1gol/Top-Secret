@@ -26,10 +26,12 @@
               {{ tournament_rules.max_members_in_team }} участников
             </div>
           </div>
-          <router-link :to="tournament.get_absolute_url + 'submit'">
-            <button class="bg-blue-four mt-10 cursor-pointer rounded-2xl px-10 py-5">Подать заявку</button>
-          </router-link>
         </div>
+      </div>
+      <div class="w-full flex justify-center">
+        <router-link :to="tournament.get_absolute_url + 'submit'">
+          <button class="bg-blue-four mt-10 cursor-pointer rounded-2xl px-10 py-5">Подать заявку</button>
+        </router-link>
       </div>
     </AppContainer>
   </div>
@@ -48,7 +50,7 @@ export default {
     }
   },
   components: {
-    AppContainer
+    AppContainer,
   },
   mounted() {
     this.getTournament()
